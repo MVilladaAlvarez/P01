@@ -1,5 +1,21 @@
 from fastapi import FastAPI
 import pandas as pd
+import os
+
+# Obtén el directorio base donde está el archivo actual
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Genera la ruta relativa al archivo
+file_path = os.path.join(BASE_DIR, "movies_dataset_transformed.csv")
+
+# Carga el archivo
+try:
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = file.read()
+        print("Archivo cargado exitosamente.")
+except FileNotFoundError:
+    print(f"No se encontró el archivo en la ruta: {file_path}")
+    raise
 
 # Actualizar la ruta de los archivos CSV
 movies_path = 'C:/Users/teo08/OneDrive/Documentos/PI/API/movies_dataset_transformed.csv' 
