@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from fastapi import FastAPI
 
 # Obtén el directorio base donde está el archivo actual
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
