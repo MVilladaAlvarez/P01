@@ -1,24 +1,38 @@
-from fastapi import FastAPI
+import os
 import pandas as pd
+from fastapi import FastAPI
 
-# Actualizar la ruta de los archivos CSV
-movies_path = 'C:/Users/teo08/OneDrive/Documentos/PI/API/movies_dataset_transformed.csv' 
-credits_path = 'C:/Users/teo08/OneDrive/Documentos/PI/API/cleaned_credits.csv'
-    
+# Obtén el directorio base donde está el archivo actual
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Rutas relativas a los archivos CSV
+movies_path = os.path.join(BASE_DIR, "movies_dataset_transformed.csv")
+credits_path = os.path.join(BASE_DIR, "cleaned_credits.csv")
+
 # Cargar los archivos CSV
-movies_df = pd.read_csv(movies_path, dtype={
-    'budget': 'float64',
-    'revenue': 'float64',
-    'release_year': 'Int64',
-    'return': 'float64'
-}, low_memory=False)
+try:
+    movies_df = pd.read_csv(movies_path, dtype={
+        'budget': 'float64',
+        'revenue': 'float64',
+        'release_year': 'Int64',
+        'return': 'float64'
+    }, low_memory=False)
+    print("Archivo 'movies_dataset_transformed.csv' cargado exitosamente.")
+except FileNotFoundError:
+    print(f"No se encontró el archivo en la ruta: {movies_path}")
+    raise
 
-credits_df = pd.read_csv(credits_path, dtype={
-    'cast_name': 'string',
-    'crew_name': 'string',
-    'crew_job': 'string',
-    'movie_title': 'string'
-}, low_memory=False)
+try:
+    credits_df = pd.read_csv(credits_path, dtype={
+        'cast_name': 'string',
+        'crew_name': 'string',
+        'crew_job': 'string',
+        'movie_title': 'string'
+    }, low_memory=False)
+    print("Archivo 'cleaned_credits.csv' cargado exitosamente.")
+except FileNotFoundError:
+    print(f"No se encontró el archivo en la ruta: {credits_path}")
+    raise
 
 # Initialize FastAPI app
 app = FastAPI()
