@@ -29,4 +29,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 # Comando por defecto para ejecutar la aplicación
-CMD ["uvicorn", "API.fastapi_movies_api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "fastapi_movies_api:app", "--host", "0.0.0.0", "--port", "8000"]
